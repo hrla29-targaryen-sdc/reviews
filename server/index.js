@@ -12,6 +12,11 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.get('/reviews', (req, res) => {
   // console.log("in get")
+
+  //TODO: change this to get reviews based on unique itemID
+  // const {itemID} = req.params;
+
+  // db.review.find({itemID: itemID})
   db.review.find({})
     .then((data) => res.status(200).send(data))
     .catch(err => res.status(404).send("error getAll: ", err))
@@ -19,9 +24,9 @@ app.get('/reviews', (req, res) => {
 
 app.post('/reviews', (req, res) => {``
   // console.log("in post")
-  const { nickName, title, body, rating, fit } = req.body
+  const { itemID, nickName, title, body, rating, fit } = req.body
   db.review.create({
-    nickName, title, body, rating, fit
+    itemID, nickName, title, body, rating, fit
   })
     .then(() => res.status(201).send("post ok"))
     .catch(err => res.status(404).send("error posting: ", err))
@@ -38,8 +43,8 @@ app.delete('/reviews/delete', (req, res) => {
 })
 
 app.patch('/reviews', (req, res) => {
-  const {id, nickName, title, body, rating, fit} = req.body;
-  db.review.findOneAndUpdate({_id: id}, {id, nickName, title, body, rating, fit})
+  const {itemID, nickName, title, body, rating, fit} = req.body;
+  db.review.findOneAndUpdate({itemID}, {itemID, nickName, title, body, rating, fit})
     .then(() => {
       res.status(200).send("Updated!");
     })

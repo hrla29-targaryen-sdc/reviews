@@ -4555,25 +4555,34 @@ let reviews = [
  }
 ];
 
-let numReviews = Math.round((Math.random()*10) + 10);
+//4-7 reviews per item ==> 40-70 million reviews
+let numReviews = Math.round((Math.random()*4) + 3);
+//declare ID for each instance
+let itemID = 1;
 
-// const insertSampleReviews = function() {
-//   let randReviews = getReviews();
-//   numReviews = Math.round((Math.random()*10) + 10);
-//   db.review.create(randReviews)
-//     .then(() => console.log("DB Seeded!"))
-//     .catch(err => console.log("error seeding: ",err));
-// };
+const insertSampleReviews = function() {
+  let randReviews = getReviews();
+  //reset the random number of reviews for the next run
+  numReviews = Math.round((Math.random()*4) + 3);
+  //increment the itemID for the next run
+  itemID++;
+  db.review.create(randReviews)
+    .then(() => {})
+    .catch(err => console.log("error seeding: ",err));
+};
 
 const getReviews = function() {
   let array = [];
   let copy = reviews.slice()
   for (var i=0; i < numReviews; i++) {
+    //get a random index for the giant reviews array
     let randSplice = Math.floor(Math.random()*copy.length)
 
+    //get a random review object from the reviews array
     var copyIdx = copy.splice(randSplice, 1)[0]
 
     //manipulate copyIdx for createdAt and fit
+    //changing the date format to the date format mongoDB likes
     copyIdx.createdAt = copyIdx.createdAt.slice(0,copyIdx.createdAt.length-2)+"20"+copyIdx.createdAt.slice(copyIdx.createdAt.length-2)
     copyIdx.createdAt = new Date(copyIdx.createdAt).toISOString()
 
@@ -4586,9 +4595,12 @@ const getReviews = function() {
       } else {
         copyIdx.fit = 5
       }
-    } else if (copyIdx <= 4) {
+    } else if (copyIdx.rating <= 4) {
       copyIdx.fit = Math.floor(Math.random()*3) + 2
     }
+    //add the itemID to the object
+    copyIdx.itemID = itemID;
+
     array.push(copyIdx)
   }
   return array;
