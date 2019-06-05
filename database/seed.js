@@ -4557,13 +4557,13 @@ let reviews = [
 
 let numReviews = Math.round((Math.random()*10) + 10);
 
-const insertSampleReviews = function() {
-  let randReviews = getReviews();
-  numReviews = Math.round((Math.random()*10) + 10);
-  db.review.create(randReviews)
-    .then(() => console.log("DB Seeded!"))
-    .catch(err => console.log("error seeding: ",err));
-};
+// const insertSampleReviews = function() {
+//   let randReviews = getReviews();
+//   numReviews = Math.round((Math.random()*10) + 10);
+//   db.review.create(randReviews)
+//     .then(() => console.log("DB Seeded!"))
+//     .catch(err => console.log("error seeding: ",err));
+// };
 
 const getReviews = function() {
   let array = [];
@@ -4593,7 +4593,6 @@ const getReviews = function() {
   }
   return array;
 }
-
 
 // insertSampleReviews();
 
