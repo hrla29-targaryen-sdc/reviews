@@ -43,8 +43,8 @@ app.delete('/reviews/delete', (req, res) => {
 })
 
 app.patch('/reviews', (req, res) => {
-  const {itemID, nickName, title, body, rating, fit} = req.body;
-  db.review.findOneAndUpdate({itemID}, {itemID, nickName, title, body, rating, fit})
+  const {_id, itemID, nickName, title, body, rating, fit} = req.body;
+  db.review.findOneAndUpdate({_id}, {itemID, nickName, title, body, rating, fit})
     .then(() => {
       res.status(200).send("Updated!");
     })
