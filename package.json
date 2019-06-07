@@ -10,7 +10,8 @@
     "react-dev": "webpack -d --watch",
     "start": "nodemon server/index.js",
     "db:setup": "node database/seed.js",
-    "seedData": "node database/seedToDB.js"
+    "writeDataToFile": "node database/seedToDB.js",
+    "seedTenMillionMongo" : "mongoimport --db SDC_Nordstrom_Reviews --collection reviews --file '/Users/admin/Desktop/SDC review-service/DONTOPENdataFile.json' --jsonArray"
   },
   "dependencies": {
     "express": "^4.16.4",
