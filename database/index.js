@@ -7,35 +7,46 @@ db.once('open', function() {
   console.log('db connected!')
 });
 
+// var reviewSchema = new mongoose.Schema({
+//   itemID: {
+//     type: Number,
+//     required: true
+//   },
+//   nickName: {
+//     type: String,
+//     required: true
+//   },
+
+//   rating: {
+//     type: Number,
+//     required: true
+//   },
+
+//   title: {
+//     type: String,
+//     required: true
+//   },
+
+//   body: {
+//     type: String,
+//     required: true
+//   },
+
+//   fit: {
+//     type: Number,
+//     required: true
+//   }  
+// }, {timestamps: true});
+
 var reviewSchema = new mongoose.Schema({
   itemID: {
     type: Number,
     required: true
   },
-  nickName: {
-    type: String,
+  reviews: {
+    type: Array,
     required: true
-  },
-
-  rating: {
-    type: Number,
-    required: true
-  },
-
-  title: {
-    type: String,
-    required: true
-  },
-
-  body: {
-    type: String,
-    required: true
-  },
-
-  fit: {
-    type: Number,
-    required: true
-  }  
+  }
 }, {timestamps: true});
 
 const review = mongoose.model('Reviews', reviewSchema);

@@ -4555,7 +4555,7 @@ let reviews = [
  }
 ];
 
-//4-7 reviews per item ==> 40-70 million reviews
+//3-6 reviews per item ==> 30-60 million reviews
 let numReviews = Math.round((Math.random()*4) + 3);
 //declare ID for each instance
 let itemID = 1;
@@ -4566,7 +4566,7 @@ const insertSampleReviews = function() {
   numReviews = Math.round((Math.random()*4) + 3);
   //increment the itemID for the next run
   itemID++;
-  db.review.create(randReviews)
+  db.review.insertMany(randReviews)
     .then(() => {})
     .catch(err => console.log("error seeding: ",err));
 };
@@ -4579,29 +4579,31 @@ const getReviews = function() {
     let randSplice = Math.floor(Math.random()*copy.length)
 
     //get a random review object from the reviews array
-    var copyIdx = copy.splice(randSplice, 1)[0]
+    var singleReview = copy.splice(randSplice, 1)[0]
 
-    //manipulate copyIdx for createdAt and fit
+    //manipulate singleReview for createdAt and fit
     //changing the date format to the date format mongoDB likes
-    copyIdx.createdAt = copyIdx.createdAt.slice(0,copyIdx.createdAt.length-2)+"20"+copyIdx.createdAt.slice(copyIdx.createdAt.length-2)
-    copyIdx.createdAt = new Date(copyIdx.createdAt).toISOString()
+    singleReview.createdAt = singleReview.createdAt.slice(0,singleReview.createdAt.length-2)+"20"+singleReview.createdAt.slice(singleReview.createdAt.length-2)
+    singleReview.createdAt = new Date(singleReview.createdAt).toISOString()
 
     //fit conditional
-    if (copyIdx.rating === 5) {
-      copyIdx.fit = 3
-    } else if (copyIdx.rating <= 2) {
-      if (Math.random > 0.5) {
-        copyIdx.fit = 1
+    if (singleReview.rating === 5) {
+      singleReview.fit = 3
+    } else if (singleReview.rating <= 2) {
+      let randomNum = Math.random();
+      if (randomNum > 0.5) {
+        singleReview.fit = 1
       } else {
-        copyIdx.fit = 5
+        singleReview.fit = 5
       }
-    } else if (copyIdx.rating <= 4) {
-      copyIdx.fit = Math.floor(Math.random()*3) + 2
+    } else if (singleReview.rating <= 4) {
+      singleReview.fit = Math.floor(Math.random()*3) + 2
     }
-    //add the itemID to the object
-    copyIdx.itemID = itemID;
 
-    array.push(copyIdx)
+    //add the itemID to the object
+    singleReview.itemID = itemID;
+
+    array.push(singleReview)
   }
   return array;
 }
