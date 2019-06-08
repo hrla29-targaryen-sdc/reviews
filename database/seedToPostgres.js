@@ -1,4 +1,4 @@
-//This file writes the data to DONTOPENdataFile.json which is for mongo
+//This file writes the data to DONTOPENdataFilePostgres.csv which is for Postgres
 
 const seed = require ('./seed.js');
 const db = require ('./index.js');
@@ -45,11 +45,14 @@ const getReviews = function() {
   
 console.time('writeReviewsToFile')
 
-let stream = fs.createWriteStream("./DONTOPENdataFile.json");
+let stream = fs.createWriteStream("./DONTOPENdataFilePostgres.csv");
 
 const populate = async() => {
   for(let i = 1; i <= 10000000; i++) {
-    if(!stream.write(JSON.stringify(insertSampleReviews()) + (i === 10000000 ? ']' : ','))) {
+    let row = '';
+    let reviewObj = insertSampleReviews();
+    row += JSON.stringify(reviewObj.itemID) + '|' + JSON.stringify(reviewObj.reviews);
+    if(!stream.write(row + (i === 10000000 ? '' : '\n'))) {
       await new Promise(resolve => stream.once('drain', resolve));
     }
     if (i === 10000000) {
@@ -58,7 +61,4 @@ const populate = async() => {
   }
 }
 
-stream.write('[', populate);
-
-
-//mongoimport --db SDC_Nordstrom_Reviews --collection reviews --file "/Users/admin/Desktop/SDC review-service/DONTOPENdataFile.json" --jsonArray
+stream.write('', populate);
