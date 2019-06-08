@@ -13,11 +13,9 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 app.get('/reviews', (req, res) => {
   // console.log("in get")
 
-  //TODO: change this to get reviews based on unique itemID
-  // const {itemID} = req.params;
+  const {itemID} = req.body;
 
-  // db.review.find({itemID: itemID})
-  db.review.find({})
+  db.review.find({itemID: itemID})
     .then((data) => res.status(200).send(data))
     .catch(err => res.status(404).send("error getAll: ", err))
 })
