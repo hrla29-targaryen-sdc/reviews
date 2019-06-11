@@ -14,7 +14,6 @@ class ReviewSort extends React.Component {
       currentSelectionR: 'Sort Reviews',
       allReviews: [],
       sortedReviews: [],
-
     };
     this.showMenuL = this.showMenuL.bind(this);
     this.handleChangeL = this.handleChangeL.bind(this);
@@ -26,7 +25,6 @@ class ReviewSort extends React.Component {
     this.starFilter = this.starFilter.bind(this);
     this.rightSort = this.rightSort.bind(this);
     this.handleClick = this.handleClick.bind(this);
-
   }
 
   componentDidUpdate(prevProps) {
@@ -42,15 +40,16 @@ class ReviewSort extends React.Component {
   }
 
   fetchReviews() {
-    axios
-      .get('/reviews')
+    let id = window.location.href.split("id=")[1];
+   
+    axios.get(`http://localhost:3004/reviews_mongo/${id}`)
       .then(({ data }) => {
         this.setState({
-          allReviews: data,
-          sortedReviews: data
+          allReviews: data[0].reviews,
+          sortedReviews: data[0].reviews
         })
       })
-      .catch(err => console.log("get error: ", err))
+      .catch(err => console.log(err))
   }
 
   showMenuL(event) {

@@ -3,8 +3,8 @@ import ReviewSort from './ReviewSort.jsx';
 import style from './css/ReviewMain.css'
 
 class ReviewsMain extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   render() {

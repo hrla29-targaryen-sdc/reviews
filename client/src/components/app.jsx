@@ -11,31 +11,23 @@ class App extends React.Component {
       reviews: []
     }
     this.fetchReviews = this.fetchReviews.bind(this);
-    this.refreshReviews = this.refreshReviews.bind(this);
   }
 
   componentDidMount() {
-    this.refreshReviews();
+    this.fetchReviews();
   }
 
-  refreshReviews() {
-    axios
-      .delete('/reviews/delete')
-      .then(() => {
-        this.fetchReviews();
-      })
-      .catch(err => console.log('error delete all:', err))
-  }
 
   fetchReviews() {
-    axios
-      .get('/reviews')
+    let id = window.location.href.split("id=")[1];
+   
+    axios.get(`http://localhost:3004/reviews_mongo/${id}`)
       .then(({ data }) => {
         this.setState({
-          reviews: data
+          reviews: data[0].reviews
         })
       })
-      .catch(err => console.log("get error: ", err))
+      .catch(err => console.log(err))
   }
 
   render() {
