@@ -2,11 +2,11 @@ config:
   target: 'http://localhost:3004'
   phases:
     - duration: 30
-      arrivalRate: 1000
+      arrivalRate: 750
   defaults:
     headers:
       x-my-service-auth: '987401838271002188298567'
 scenarios:
   - flow:
     - get:
-        url: "/reviews_postgres/?itemID=9000001"
+        url: "/reviews_postgres/9000000"

@@ -3,7 +3,8 @@ const pg = require('pg');
 
 const connection = new Sequelize('postgres', 'postgres', 'hackreactortest', {
   host: 'localhost',
-  dialect: 'postgres'
+  dialect: 'postgres',
+  logging: false
 });
 
 connection

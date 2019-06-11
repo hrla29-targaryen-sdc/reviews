@@ -14,8 +14,6 @@ app.use('/items/reviews', express.static(path.join(__dirname, '../client/dist'))
 ////////////////Mongo////////////////////
 
 app.get('/reviews_mongo/:itemID', (req, res) => {
-  // console.log("in get")
-
   const {itemID} = req.params;
 
   db.review.find({itemID: itemID})
@@ -24,8 +22,8 @@ app.get('/reviews_mongo/:itemID', (req, res) => {
 })
 
 app.post('/reviews_mongo', (req, res) => {``
-  // console.log("in post")
   const { itemID, nickName, title, body, rating, fit } = req.body
+
   db.review.create({
     itemID, nickName, title, body, rating, fit
   })
@@ -36,7 +34,6 @@ app.post('/reviews_mongo', (req, res) => {``
 //Need to fix this so it doesnt delete all
 
 // app.delete('/reviews_mongo', (req, res) => {
-//   // console.log("in deleteAll")
 //   db.review.deleteMany({})
 //     .then(() => {
 //       res.status(200).send("all deleted");
@@ -58,8 +55,6 @@ app.patch('/reviews_mongo', (req, res) => {
 /////////////////Postgres/////////////////////////////
 
 app.get('/reviews_postgres/:itemID', (req, res) => {
-  // console.log("in get")
-
   const {itemID} = req.params;
 
   ReviewPG.findAll({
@@ -71,7 +66,6 @@ app.get('/reviews_postgres/:itemID', (req, res) => {
 })
 
 // app.post('/reviews_postgres', (req, res) => {``
-//   // console.log("in post")
 //   const { itemID, reviews } = req.body
 
 //   ReviewPG.create({
@@ -82,8 +76,6 @@ app.get('/reviews_postgres/:itemID', (req, res) => {
 // })
 
 // app.delete('/reviews_postgres', (req, res) => {
-//   // console.log("in deleteAll")
-//
 //   const {itemID} = req.query;
 //
 //   ReviewPG.destroy({where : {itemid : itemID}})
@@ -94,7 +86,6 @@ app.get('/reviews_postgres/:itemID', (req, res) => {
 // })
 
 // app.patch('/reviews_postgres', (req, res) => {
-//
 //   const {itemID, reviews} = req.query;
 //
 //   ReviewPG.update({ itemid:itemID, reviews:reviews}, {
