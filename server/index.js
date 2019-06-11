@@ -37,9 +37,9 @@ app.delete('/reviews_mongo', (req, res) => {
 
   const {itemID} = req.body
 
-  db.review.findOneAndDelete({itemID:itemID})
+  db.review.deleteMany({itemID:itemID})
     .then(() => {
-      res.status(200).send("Successfully deleted one!");
+      res.status(200).send("Successfully deleted!");
       seed.insertSampleReviews();
     })
     .catch(err => res.status(404).send(err))
