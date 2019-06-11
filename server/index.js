@@ -11,9 +11,10 @@ app.use(parser.urlencoded({ extended: true }))
 app.use(parser.json())
 app.use('/items/reviews', express.static(path.join(__dirname, '../client/dist')));
 
-////////////////Mongo////////////////////
+//////////////////////////////////Mongo Requests//////////////////////////////////////
 
 app.get('/reviews_mongo/:itemID', (req, res) => {
+
   const {itemID} = req.params;
 
   db.review.find({itemID: itemID})
@@ -21,38 +22,42 @@ app.get('/reviews_mongo/:itemID', (req, res) => {
     .catch(err => res.status(404).send(err))
 })
 
-app.post('/reviews_mongo', (req, res) => {``
-  const { itemID, nickName, title, body, rating, fit } = req.body
+app.post('/reviews_mongo', (req, res) => {
+
+  const { itemID, reviews } = req.body
 
   db.review.create({
-    itemID, nickName, title, body, rating, fit
+    itemID, reviews
   })
-    .then(() => res.status(201).send("post ok"))
+    .then(() => res.status(201).send("Post successful!"))
     .catch(err => res.status(404).send(err))
 })
 
-//Need to fix this so it doesnt delete all
+app.delete('/reviews_mongo', (req, res) => {
 
-// app.delete('/reviews_mongo', (req, res) => {
-//   db.review.deleteMany({})
-//     .then(() => {
-//       res.status(200).send("all deleted");
-//       seed.insertSampleReviews();
-//     })
-//     .catch(err => res.status(404).send(err))
-// })
+  const {itemID} = req.body
+
+  db.review.findOneAndDelete({itemID:itemID})
+    .then(() => {
+      res.status(200).send("Successfully deleted one!");
+      seed.insertSampleReviews();
+    })
+    .catch(err => res.status(404).send(err))
+})
 
 app.patch('/reviews_mongo', (req, res) => {
-  const {_id, itemID, nickName, title, body, rating, fit} = req.body;
-  db.review.findOneAndUpdate({_id}, {itemID, nickName, title, body, rating, fit})
+
+  const {itemID, reviews} = req.body;
+
+  db.review.findOneAndUpdate({itemID: itemID}, {itemID, reviews})
     .then(() => {
-      res.status(200).send("Updated!");
+      res.status(200).send("Successfully updated!");
     })
     .catch(err => res.status(404).send(err))
 })
 
 
-/////////////////Postgres/////////////////////////////
+/////////////////////////////////////////Postgres Requests//////////////////////////////////////////
 
 app.get('/reviews_postgres/:itemID', (req, res) => {
   const {itemID} = req.params;
