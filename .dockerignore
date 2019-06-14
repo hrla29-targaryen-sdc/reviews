@@ -1,0 +1,8 @@
+node_modules
+npm-debug.log
+DONTOPENdataFile.json
+DONTOPENdataFilePostgres.csv
+mongo.yml
+postgres.yml
+./database/indexPostgres
+./database/seedToPostgres

@@ -1,0 +1,8 @@
+version: '3'
+services:
+  app:
+    container_name: sdc_nordstrom_reviews
+    restart: always
+    build: .
+    ports:
+      - '80:3004'

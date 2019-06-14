@@ -3,7 +3,7 @@ const parser = require('body-parser')
 const app = express()
 const port = 3004
 const db = require('../database')
-const ReviewPG = require('../database/indexPostgres.js')
+// const ReviewPG = require('../database/indexPostgres.js')
 const path = require('path')
 const seed = require('../database/seed.js')
 
@@ -59,16 +59,16 @@ app.patch('/reviews_mongo', (req, res) => {
 
 /////////////////////////////////////////Postgres Requests//////////////////////////////////////////
 
-app.get('/reviews_postgres/:itemID', (req, res) => {
-  const {itemID} = req.params;
+// app.get('/reviews_postgres/:itemID', (req, res) => {
+//   const {itemID} = req.params;
 
-  ReviewPG.findAll({
-    where : {itemid: itemID},
-    attributes: ['itemid', 'reviews']
-  })
-    .then((data) => res.status(200).send(data))
-    .catch(err => res.status(404).send(err))
-})
+//   ReviewPG.findAll({
+//     where : {itemid: itemID},
+//     attributes: ['itemid', 'reviews']
+//   })
+//     .then((data) => res.status(200).send(data))
+//     .catch(err => res.status(404).send(err))
+// })
 
 // app.post('/reviews_postgres', (req, res) => {``
 //   const { itemID, reviews } = req.body
