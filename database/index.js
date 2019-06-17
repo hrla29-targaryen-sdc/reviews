@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 // mongoose.connect('mongodb://localhost/SDC_Nordstrom_Reviews', {useNewUrlParser: true});
-mongoose.connect('mongodb://ec2-34-215-16-77.us-west-2.compute.amazonaws.com:27017/SDC_Nordstrom_Reviews', {useNewUrlParser: true});
+mongoose.connect('mongodb://ec2-34-209-47-55.us-west-2.compute.amazonaws.com:27017/SDC_Nordstrom_Reviews', {useNewUrlParser: true});
 
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

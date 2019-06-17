@@ -21,7 +21,8 @@ class App extends React.Component {
   fetchReviews() {
     let id = window.location.href.split("id=")[1];
    
-    axios.get(`http://localhost:3004/reviews_mongo/${id}`)
+    // axios.get(`http://localhost:3004/reviews_mongo/${id}`)
+    axios.get(`ec2-35-155-149-106.us-west-2.compute.amazonaws.com/reviews_mongo/${id}`)
       .then(({ data }) => {
         this.setState({
           reviews: data[0].reviews
