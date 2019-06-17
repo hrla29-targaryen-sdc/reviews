@@ -15,6 +15,27 @@ app.use('/items/reviews', express.static(path.join(__dirname, '../client/dist'))
 
 app.get('/loaderio-8b18f183dc2d7871793053ee8064a3de', (req, res) => {res.send('loaderio-8b18f183dc2d7871793053ee8064a3de')})
 
+//Get random review (biased toward last 90%)
+app.get('/reviews_mongo', (req, res) => {
+
+//random number 1-10
+let randomNum = Math.floor(Math.random() * 10 + 1);
+let itemID;
+//70% chance of id from 9,000,001 - 10,000,000
+if (randomNum < 8) {
+  itemID = Math.floor(Math.random()*1000000 +9000001)
+} 
+//30% chance of id from 1-9,000,000
+else {
+  itemID = Math.floor(Math.random()*9000000 + 1)
+}
+
+  db.review.find({itemID: itemID})
+    .then((data) => res.status(200).send(data))
+    .catch(err => res.status(404).send(err))
+})
+
+//Get review at specified id
 app.get('/reviews_mongo/:itemID', (req, res) => {
 
   const {itemID} = req.params;
