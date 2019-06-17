@@ -11,7 +11,15 @@ app.use(parser.urlencoded({ extended: true }))
 app.use(parser.json())
 app.use('/items/reviews', express.static(path.join(__dirname, '../client/dist')));
 
+app.use('/loaderio-0ffd6bffbde61c6085caf158b8eec7e3', (req, res, next) => {res.send('loaderio-0ffd6bffbde61c6085caf158b8eec7e3')})
+
 //////////////////////////////////Mongo Requests//////////////////////////////////////
+
+
+// http://ec2-35-155-149-106.us-west-2.compute.amazonaws.com:3004/loaderio-0ffd6bffbde61c6085caf158b8eec7e3/
+// app.get('/loaderio-0ffd6bffbde61c6085caf158b8eec7e3/'
+
+// )
 
 app.get('/reviews_mongo/:itemID', (req, res) => {
 
