@@ -13,6 +13,8 @@ app.use('/items/reviews', express.static(path.join(__dirname, '../client/dist'))
 
 //////////////////////////////////Mongo Requests//////////////////////////////////////
 
+app.get('/loaderio-8b18f183dc2d7871793053ee8064a3de', (req, res) => {res.send('loaderio-8b18f183dc2d7871793053ee8064a3de')})
+
 app.get('/reviews_mongo/:itemID', (req, res) => {
 
   const {itemID} = req.params;
