@@ -40,7 +40,6 @@ app.delete('/reviews_mongo', (req, res) => {
   db.review.deleteMany({itemID:itemID})
     .then(() => {
       res.status(200).send("Successfully deleted!");
-      seed.insertSampleReviews();
     })
     .catch(err => res.status(404).send(err))
 })
